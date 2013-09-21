@@ -23,7 +23,7 @@ module Docnmock
     end
 
     def formats(response_formats = nil)
-      @formats = response_formats if response_formats
+      @formats = Array(response_formats) if response_formats
       @formats
     end
 

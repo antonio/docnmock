@@ -1,4 +1,4 @@
-# DocNMock
+# Docnmock
 
 ## Rationale
 
@@ -24,14 +24,24 @@ API](http://developer.github.com/v3/users/)
 
 ## Documenting
 
+`Docnmock` allows you to document your API using a simple syntax
+
 ```ruby
-DocNMock.define_resource :get, '/users/:user' do
-  parameters user: 'The user'
-  examples [
-    'GET /users/octocat', fixture('get_octocat')
-  ]
-  ]
+Docnmock.define_group 'Users' do
+  description <<-EOD
+  Many of the resources on the users API provide a shortcut for
+  getting information about the currently authenticated user. If a request URL
+  does not include a :user parameter then the response will be for the logged in
+  user (and you must pass authentication information with your request).
+  EOD
+
+  Docnmock.define_resource :get, '/users/:user' do
+    description 'Get a single user'
+    parameter name: :user, description: 'The user', required: false
+    example 'get_octocat', user: 'octocat'
+  end
 end
+
 ```
 
 In `fixtures/get_octocat.json`
@@ -66,8 +76,8 @@ Use Bootstrap to prettify the HTML
 
 ## Mocking
 
-DocNMock.mock 'GET /users/octocat'
-DocNMock.mock_all
+Docnmock.mock 'GET /users/octocat'
+Docnmock.mock_all
 
 ## To-Do
 

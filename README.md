@@ -31,7 +31,7 @@ API](http://developer.github.com/v3/users/)
 
 ```ruby
 
-Docnmock.define_group 'Users' do
+Docnmock.resource_group 'Users' do
   description <<-EOD
   Many of the resources on the users API provide a shortcut for
   getting information about the currently authenticated user. If a request URL
@@ -39,7 +39,7 @@ Docnmock.define_group 'Users' do
   user (and you must pass authentication information with your request).
   EOD
 
-  Docnmock.define_resource :get, '/users/:user' do
+  Docnmock.resource :get, '/users/:user' do
     description 'Get a single user'
     parameter name: :user, description: 'The user', required: false
     example 'get_octocat', user: 'octocat'

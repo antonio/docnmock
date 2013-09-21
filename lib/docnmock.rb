@@ -15,7 +15,7 @@ module Docnmock
   #
   # Returns nothing
   # Raises an error if the name is not a string or symbol
-  def self.define_resource_group(name)
+  def self.resource_group(name)
     # TODO: Movel to Docnmock::ResourceGroup
     raise "Invalid group name: #{name}" unless [String, Symbol].include?(name.class)
 
@@ -25,7 +25,7 @@ module Docnmock
   # Public: Creates a new resource
   #
   # Returns nothing
-  def self.define_resource
+  def self.resource
 
   end
 

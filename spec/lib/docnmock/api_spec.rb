@@ -9,7 +9,7 @@ describe Docnmock::Api do
 
   describe '#resource_groups' do
     it 'returns an Enumerable' do
-      expect(subject.resource_groups.is_a?(Enumerable)).to be_true
+      expect(subject.resource_groups).to be_a_kind_of(Enumerable)
     end
   end
 

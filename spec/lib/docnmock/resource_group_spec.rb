@@ -6,7 +6,7 @@ describe Docnmock::ResourceGroup do
 
     context 'with valid arguments' do
       it 'does not raise an error if initialized with a string' do
-        expect{Docnmock::ResourceGroup.new('Users')}.to_not raise_error
+        expect{Docnmock::ResourceGroup.new('Group')}.to_not raise_error
       end
     end
 
@@ -20,10 +20,10 @@ describe Docnmock::ResourceGroup do
 
   describe 'attributes' do
 
-    subject { Docnmock::ResourceGroup.new('Users') }
+    subject { Docnmock::ResourceGroup.new('Group') }
 
     it { should respond_to(:name) }
-
+    it { should respond_to(:description) }
   end
 
 end

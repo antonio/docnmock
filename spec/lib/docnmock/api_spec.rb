@@ -31,7 +31,7 @@ describe Docnmock::Api do
   describe '#resource_group' do
 
     it 'returns a group' do
-      group = subject.resource_group('Users')
+      group = subject.resource_group('Group')
       expect(group).to be_an_instance_of(Docnmock::ResourceGroup)
     end
 
@@ -59,6 +59,12 @@ describe Docnmock::Api do
 
     end
 
+    it 'configures the resource block' do
+      Docnmock.resource_group('Group') do
+        description 'A description'
+      end
+      expect(Docnmock.resource_group('Group').description).to eq('A description')
+    end
   end
 
 end

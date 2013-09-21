@@ -18,8 +18,10 @@ module Docnmock
       resource_groups.each(&block)
     end
 
-    def resource_group(name)
-      find_group(name) || create_group(name)
+    def resource_group(name, &block)
+      group = find_group(name) || create_group(name)
+      group.instance_exec(&block) if block_given?
+      group
     end
 
     private

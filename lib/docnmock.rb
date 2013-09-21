@@ -14,12 +14,13 @@ module Docnmock
   # The resource group will be created unless one with the same name exists
   # already
   #
-  # name - The name of the group
+  # name  - The name of the group
+  # block - The block to be executed
   #
   # Returns nothing
   # Raises an error if the name is not a string or symbol
-  def self.resource_group(name)
-    api.resource_group name
+  def self.resource_group(name, &block)
+    api.resource_group(name, &block)
   end
 
   # Public: Creates a new resource

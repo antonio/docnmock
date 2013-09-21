@@ -15,8 +15,9 @@ module Docnmock
       @description
     end
 
-    def resource(method, path)
+    def resource(method, path, &block)
       resource = find_resource(method, path) || create_resource(method, path)
+      resource.instance_exec(&block) if block_given?
       resource
     end
 

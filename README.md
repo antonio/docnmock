@@ -27,6 +27,7 @@ API](http://developer.github.com/v3/users/)
 `Docnmock` allows you to document your API using a simple syntax
 
 ```ruby
+
 Docnmock.define_group 'Users' do
   description <<-EOD
   Many of the resources on the users API provide a shortcut for
@@ -72,8 +73,6 @@ In `fixtures/get_octocat.json`
 
 ## Generate documentation
 
-Use Bootstrap to prettify the HTML
-
 ## Mocking
 
 Docnmock.mock 'GET /users/octocat'
@@ -84,5 +83,4 @@ Docnmock.mock_all
 As I said before, this is just an experiment. If I find it useful, here is
 a list of improvements that can be done.
 
-* Make it possible to add more information about the parameters (optional, etc)
-* API versioning
+* API versions

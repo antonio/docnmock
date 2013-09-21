@@ -1,3 +1,6 @@
+[![Code
+Climate](https://codeclimate.com/github/antonio/docnmock.png)](https://codeclimate.com/github/antonio/docnmock)
+
 # Docnmock
 
 ## Rationale

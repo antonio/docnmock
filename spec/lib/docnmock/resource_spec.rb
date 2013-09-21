@@ -19,8 +19,17 @@ describe Docnmock::Resource do
     it { should respond_to(:path) }
 
     describe 'defaults' do
-      it 'has default attributes' do
+      it 'has a default description' do
         expect(subject.description).to eq("")
+      end
+      it 'has default formats' do
+        expect(subject.formats).to eq([])
+      end
+      it 'has a default parameters' do
+        expect(subject.parameters).to eq([])
+      end
+      it 'has a default examples' do
+        expect(subject.examples).to eq([])
       end
     end
 

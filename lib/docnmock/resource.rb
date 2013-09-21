@@ -1,7 +1,7 @@
 module Docnmock
   class Resource
 
-    attr_reader :method, :path, :examples
+    attr_reader :method, :path, :examples, :parameters, :examples
 
     HTTP_METHODS = [:options, :get, :head, :post, :put, :delete, :trace,
                     :connect]
@@ -22,7 +22,9 @@ module Docnmock
     def example
     end
 
-    def formats
+    def formats(response_formats = nil)
+      @formats = response_formats if response_formats
+      @formats
     end
 
     def parameter

@@ -20,16 +20,24 @@ describe Docnmock::Resource do
 
     describe 'defaults' do
       it 'has a default description' do
-        expect(subject.description).to eq("")
+        expect(subject.description).to_not be_nil
       end
       it 'has default formats' do
-        expect(subject.formats).to eq([])
+        expect(subject.formats).to_not be_nil
       end
       it 'has a default parameters' do
-        expect(subject.parameters).to eq([])
+        expect(subject.parameters).to_not be_nil
       end
       it 'has a default examples' do
-        expect(subject.examples).to eq([])
+        expect(subject.examples).to_not be_nil
+      end
+    end
+
+    describe '#parameter' do
+      it 'creates a new parameter' do
+        parameter = subject.parameter name: 'parameter', required: true,
+                                      description: 'A parameter', type: 'string'
+        expect(parameter).to be_an_instance_of Docnmock::Parameter
       end
     end
 

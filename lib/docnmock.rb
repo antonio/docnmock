@@ -1,4 +1,5 @@
 require "docnmock/api"
+require "docnmock/parameter"
 require "docnmock/resource"
 require "docnmock/resource_group"
 

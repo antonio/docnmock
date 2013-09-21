@@ -27,7 +27,10 @@ module Docnmock
       @formats
     end
 
-    def parameter
+    def parameter(attributes)
+      parameter = Docnmock::Parameter.new(attributes)
+      parameters << parameter
+      parameter
     end
 
     private

@@ -1,4 +1,5 @@
 require "docnmock/api"
+require "docnmock/resource_group"
 
 module Docnmock
 
@@ -9,17 +10,16 @@ module Docnmock
     @api ||= Docnmock::Api.new
   end
 
-  # Public: Creates a new resource group
+  # Public: Executes the block in the context of a resource group
+  # The resource group will be created unless one with the same name exists
+  # already
   #
   # name - The name of the group
   #
   # Returns nothing
   # Raises an error if the name is not a string or symbol
   def self.resource_group(name)
-    # TODO: Movel to Docnmock::ResourceGroup
-    raise "Invalid group name: #{name}" unless [String, Symbol].include?(name.class)
-
-    api.add_resource_group(name)
+    api.resource_group name
   end
 
   # Public: Creates a new resource

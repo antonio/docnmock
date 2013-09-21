@@ -90,3 +90,5 @@ a list of improvements that can be done.
 
 * API versions
 * Tomdoc
+* Make it possible to mock more than one API
+* Rails integration?

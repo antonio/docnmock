@@ -78,8 +78,10 @@ In `fixtures/get_octocat.json`
 
 ## Mocking
 
+```ruby
 Docnmock.mock 'GET /users/octocat'
 Docnmock.mock_all
+```
 
 ## To-Do
 

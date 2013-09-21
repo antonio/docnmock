@@ -12,8 +12,6 @@ describe Docnmock::Resource do
 
   describe 'attributes' do
     it { should respond_to(:description) }
-    it { should respond_to(:error) }
-    it { should respond_to(:errors) }
     it { should respond_to(:example) }
     it { should respond_to(:formats) }
     it { should respond_to(:method) }
@@ -25,6 +23,7 @@ describe Docnmock::Resource do
         expect(subject.description).to eq("")
       end
     end
+
   end
 
 end

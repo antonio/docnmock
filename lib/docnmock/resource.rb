@@ -1,7 +1,7 @@
 module Docnmock
   class Resource
 
-    attr_reader :method, :path, :errors, :examples
+    attr_reader :method, :path, :examples
 
     HTTP_METHODS = [:options, :get, :head, :post, :put, :delete, :trace,
                     :connect]
@@ -17,9 +17,6 @@ module Docnmock
     def description(new_description = nil)
       @description = new_description if new_description
       @description
-    end
-
-    def error
     end
 
     def example
@@ -39,7 +36,6 @@ module Docnmock
 
     def set_default_attributes
       @description = ""
-      @errors      = {}
       @formats     = []
       @examples    = []
       @parameters  = []

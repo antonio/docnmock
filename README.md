@@ -122,5 +122,5 @@ a list of improvements that can be done.
 * Rails integration?
 * Create Error classes instead of using the standard one
 * Pass headers to example
-* Rake tasks to validate the API (say you are missing parameters in your
+* Resource validation and rake tasks to validate the API (say you are missing parameters in your
   resources, for instance)

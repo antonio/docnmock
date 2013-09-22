@@ -1,5 +1,6 @@
 [![Code
 Climate](https://codeclimate.com/github/antonio/docnmock.png)](https://codeclimate.com/github/antonio/docnmock)
+[![Build Status](https://travis-ci.org/antonio/docnmock.png?branch=master)](https://travis-ci.org/antonio/docnmock)
 
 # Docnmock
 

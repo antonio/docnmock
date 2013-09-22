@@ -7,7 +7,7 @@ module Docnmock
                     :connect]
 
     def initialize(method, path)
-      raise "Invalid HTTP method: #{method}" unless valid_method?(method)
+      check_arguments!(method, path)
 
       set_default_attributes
       @method = method
@@ -44,6 +44,11 @@ module Docnmock
       @formats     = []
       @examples    = []
       @parameters  = []
+    end
+
+    def check_arguments!(method, path)
+      raise "Invalid HTTP method: #{method}" unless valid_method?(method)
+      raise "Missing path" unless path
     end
   end
 end

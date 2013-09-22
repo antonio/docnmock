@@ -23,6 +23,16 @@ describe Docnmock::ResourceGroup do
   describe 'attributes' do
     it { should respond_to(:name) }
     it { should respond_to(:description) }
+
+    describe '#description' do
+      let(:new_description) { 'A new description' }
+
+      it 'updates the description' do
+        subject.description new_description
+        expect(subject.description).to eq(new_description)
+      end
+
+    end
   end
 
   describe 'resources' do

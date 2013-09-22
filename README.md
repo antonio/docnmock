@@ -124,3 +124,5 @@ a list of improvements that can be done.
 * Pass headers to example
 * Resource validation and rake tasks to validate the API (say you are missing parameters in your
   resources, for instance)
+* Refactor specs, I am pretty sure that there are some shared examples hidden
+  there.

@@ -15,7 +15,13 @@ describe Docnmock::Parameter do
   end
 
   describe 'attributes' do
-    subject { Docnmock::Parameter.new(name: 'name', type: 'type', required: false, description: 'Description') }
+    let(:name)        { 'name' }
+    let(:type)        { 'type' }
+    let(:required)    { false }
+    let(:description) { 'Description' }
+
+    subject { Docnmock::Parameter.new(name: name, type: type,
+                                      required: required, description: description) }
 
     it { should respond_to(:name) }
     it { should respond_to(:type) }
@@ -24,11 +30,15 @@ describe Docnmock::Parameter do
 
     it 'provides defaults' do
       parameter = Docnmock::Parameter.new(name: 'name')
-      expect(parameter.description).to_not be_nil
+      expect(parameter.required).to be_false
     end
 
-    it 'sets the attributes correctly' do
-      expect(subject.name).to eq('name')
+    Docnmock::Parameter::VALID_ATTRS.each do |attribute|
+
+      it "sets the attribute #{attribute} correctly" do
+        expect(subject.public_send(attribute)).to eq(send(attribute))
+      end
+
     end
   end
 

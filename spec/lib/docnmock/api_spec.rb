@@ -59,11 +59,8 @@ describe Docnmock::Api do
 
     end
 
-    it 'configures the resource block' do
-      Docnmock.resource_group('Group') do
-        description 'A description'
-      end
-      expect(Docnmock.resource_group('Group').description).to eq('A description')
+    it 'yields control' do
+      expect{|probe| Docnmock.resource_group('Group', &probe)}.to yield_control
     end
   end
 

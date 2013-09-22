@@ -37,12 +37,8 @@ describe Docnmock::ResourceGroup do
       expect(subject.resources).to_not be_empty
     end
 
-    it 'runs a block in the context of the resource' do
-      resource = subject.resource :get, '/resource/:id' do
-        description 'A resource'
-        formats [:json, :xml]
-      end
-      expect(resource.description).to eq('A resource')
+    it 'yields control' do
+      expect{ |probe| subject.resource :get, '/resource/:id', &probe}.to yield_control
     end
   end
 

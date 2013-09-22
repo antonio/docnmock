@@ -35,8 +35,7 @@ describe Docnmock::Resource do
 
     describe '#parameter' do
       it 'creates a new parameter' do
-        parameter = subject.parameter name: 'parameter', required: true,
-                                      description: 'A parameter', type: 'string'
+        parameter = subject.parameter name: 'parameter', required: true
         expect(parameter).to be_an_instance_of Docnmock::Parameter
       end
     end

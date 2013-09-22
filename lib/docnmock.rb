@@ -6,11 +6,17 @@ require "docnmock/resource_group"
 
 module Docnmock
 
+  # Public: Hooks itself into another Module adding the API documentation and
+  # mocking functionality, using it as a namespace to create the API definition.
+  def self.hook_into(a_module)
+    a_module.extend(self)
+  end
+
   # Internal: Initialize or return a new Api object
   #
   # Returns a new Api object
-  def self.api
-    @api ||= Docnmock::Api.new
+  def self.docnmock_api
+    @docnmock_api ||= Docnmock::Api.new
   end
 
   # Public: Executes the block in the context of a resource group
@@ -23,14 +29,7 @@ module Docnmock
   # Returns nothing
   # Raises an error if the name is not a string or symbol
   def self.resource_group(name, &block)
-    api.resource_group(name, &block)
-  end
-
-  # Public: Creates a new resource
-  #
-  # Returns nothing
-  def self.resource
-
+    docnmock_api.resource_group(name, &block)
   end
 
 end

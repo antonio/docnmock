@@ -40,7 +40,7 @@ Docnmock.resource_group 'Users' do
   user (and you must pass authentication information with your request).
   EOD
 
-  Docnmock.resource :get, '/users/:user' do
+  resource :get, '/users/:user' do
     description 'Get a single user'
     parameter name: :user, description: 'The user', required: false
     example path: '/users/octocat', response: response('get_users_octocat.json')

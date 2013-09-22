@@ -17,8 +17,7 @@ module Docnmock
 
     def resource(method, path, &block)
       resource = find_resource(method, path) || create_resource(method, path)
-      resource.instance_exec(&block) if block_given?
-      resource
+      resource.tap {|r| r.instance_exec(&block) if block_given? }
     end
 
     private
@@ -37,9 +36,7 @@ module Docnmock
     end
 
     def create_resource(method, path)
-      resource = Docnmock::Resource.new(method, path)
-      resources << resource
-      resource
+      Docnmock::Resource.new(method, path).tap {|r| resources << r}
     end
   end
 end

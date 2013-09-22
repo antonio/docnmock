@@ -20,16 +20,13 @@ module Docnmock
 
     def resource_group(name, &block)
       group = find_group(name) || create_group(name)
-      group.instance_exec(&block) if block_given?
-      group
+      group.tap { |g| g.instance_exec(&block) if block_given? }
     end
 
     private
 
     def create_group(name)
-      group = Docnmock::ResourceGroup.new(name)
-      add_resource_group group
-      group
+      Docnmock::ResourceGroup.new(name).tap {|g| add_resource_group g}
     end
 
     def find_group(name)

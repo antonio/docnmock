@@ -120,3 +120,5 @@ a list of improvements that can be done.
 * Tomdoc
 * Make it possible to mock more than one API
 * Rails integration?
+* Create Error classes instead of using the standard one
+* Pass headers to example

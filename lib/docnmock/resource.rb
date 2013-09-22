@@ -33,9 +33,7 @@ module Docnmock
     end
 
     def example(params)
-      example = Example.new(params[:path], params[:response])
-      examples << example
-      example
+      Example.new(params[:path], params[:response]).tap {|e| examples << e}
     end
 
     def formats(response_formats = nil)
@@ -44,9 +42,7 @@ module Docnmock
     end
 
     def parameter(attributes)
-      parameter = Docnmock::Parameter.new(attributes)
-      parameters << parameter
-      parameter
+      Docnmock::Parameter.new(attributes).tap {|p| parameters << p}
     end
 
     private

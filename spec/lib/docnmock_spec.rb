@@ -1,59 +1,35 @@
 require 'docnmock'
 
-module MyModule
-end
+module MyModule; end
+module AnotherModule; end
 
 describe Docnmock do
 
-  it 'hooks itself into another module' do
+  before(:all) do
     Docnmock.hook_into(MyModule)
+  end
+
+  it 'hooks itself into another module and creates a new API' do
     expect(MyModule).to be_a_kind_of(Docnmock)
   end
 
-  it { should respond_to(:resource_group) }
-
-  before(:each) do
-    Docnmock.instance_variable_set(:@docnmock_api, Docnmock::Api.new)
+  it 'creates a new Api object when extending a module' do
+    expect(MyModule.docnmock_api).to be_a_kind_of(Docnmock::Api)
   end
 
-  describe '.resource_group' do
-
-    let(:group_name) { 'Group' }
-
-    context 'with no arguments' do
-      it 'raises an error' do
-        expect{ Docnmock.resource_group }.to raise_error
-      end
+  describe '.docnmock_api' do
+    it 'returns the same object for the same module' do
+      expect(MyModule.docnmock_api).to be(MyModule.docnmock_api)
     end
 
-    context 'with invalid arguments' do
-      it 'raises an error' do
-        expect{Docnmock.resource_group({})}.to raise_error
-      end
+    it 'returns a different object for a different module' do
+      Docnmock.hook_into(AnotherModule)
+      expect(MyModule.docnmock_api).to_not be(AnotherModule.docnmock_api)
     end
 
-    context 'with valid arguments' do
-      it 'creates a new group' do
-        Docnmock.resource_group group_name
-        expect(Docnmock.docnmock_api.resource_groups).to_not be_empty
-      end
+    it 'yields control' do
+      expect{ |probe| MyModule.docnmock_api(&probe) }.to yield_control
     end
-
-    context 'a group with that name does not exist' do
-      it 'creates a new group' do
-        expect(Docnmock.docnmock_api.resource_groups).to be_empty
-        Docnmock.resource_group group_name
-        expect(Docnmock.docnmock_api.resource_groups.first.name).to eq(group_name)
-      end
-    end
-
-    context 'a group with that name already exists' do
-      it 'does not create a new group' do
-        2.times { Docnmock.resource_group group_name }
-        expect(Docnmock.docnmock_api.resource_groups.size).to eq(1)
-      end
-    end
-
   end
 
 end

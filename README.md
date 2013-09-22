@@ -28,23 +28,31 @@ API](http://developer.github.com/v3/users/)
 
 ## Documenting
 
-`Docnmock` allows you to document your API using a simple syntax
+`Docnmock` allows you to document your API using a simple syntax. You will need
+to hook it into your gem so that you can start defining your API. See example
+below
 
 ```ruby
 
-Docnmock.resource_group 'Users' do
-  description <<-EOD
-  Many of the resources on the users API provide a shortcut for
-  getting information about the currently authenticated user. If a request URL
-  does not include a :user parameter then the response will be for the logged in
-  user (and you must pass authentication information with your request).
-  EOD
+Docnmock.hook_into(YourAwesomeGem)
 
-  resource :get, '/users/:user' do
-    description 'Get a single user'
-    parameter name: :user, description: 'The user', required: false
-    example path: '/users/octocat', response: response('get_users_octocat.json')
-  end
+YourAwesomeGem.docnmock_api do
+
+  resource_group 'Users' do
+
+    description <<-EOD
+      Many of the resources on the users API provide a shortcut for
+      getting information about the currently authenticated user. If a request URL
+      does not include a :user parameter then the response will be for the logged in
+      user (and you must pass authentication information with your request).
+    EOD
+
+    resource :get, '/users/:user' do
+      description 'Get a single user'
+      parameter name: :user, description: 'The user', required: false
+      example path: '/users/octocat', response: response('get_users_octocat.json')
+    end
+
 end
 
 ```

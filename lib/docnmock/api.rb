@@ -18,6 +18,15 @@ module Docnmock
       resource_groups.each(&block)
     end
 
+    # Public: Executes the block in the context of a resource group
+    # The resource group will be created unless one with the same name exists
+    # already
+    #
+    # name  - The name of the group
+    # block - The block to be executed
+    #
+    # Returns nothing
+    # Raises an error if the name is not a string or symbol
     def resource_group(name, &block)
       group = find_group(name) || create_group(name)
       group.tap { |g| g.instance_exec(&block) if block_given? }

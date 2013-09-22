@@ -60,8 +60,9 @@ describe Docnmock::Api do
     end
 
     it 'yields control' do
-      expect{|probe| Docnmock.resource_group('Group', &probe)}.to yield_control
+      expect{|probe| subject.resource_group('Group', &probe)}.to yield_control
     end
+
   end
 
 end

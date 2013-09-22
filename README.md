@@ -42,13 +42,40 @@ Docnmock.resource_group 'Users' do
   Docnmock.resource :get, '/users/:user' do
     description 'Get a single user'
     parameter name: :user, description: 'The user', required: false
-    example 'get_octocat', user: 'octocat'
+    example path: '/users/octocat', response: response('get_users_octocat.json')
   end
 end
 
 ```
 
-In `fixtures/get_octocat.json`
+`parameter` accepts a hash with the following attributes:
+
+* name
+
+  The name of the parameter. In the resource path, it is preceded by a colon.
+
+* description
+
+  Freestyle description of the parameter.
+
+* required
+
+  Either true or false, defaults to false.
+
+* type
+
+  Type of the parameter. There are no boundaries for this, but try to use well
+  known primitives as a guideline (string, int, boolean, etc)
+
+`example` accepts two arguments. The first one is the request path, including
+whatever parameters are needed. The second one is the response that will be
+returned (as a string). As you can see in the example above, you can (and
+should!) use a helper to load the response from a file bundled with your gem.
+`docnmock` assumes your fixtures will be under a folder named `responses`. For
+more information, please have a look at the
+[docnmock-github](https://github.com/antonio/docnmock-github) project.
+
+The contents of `responses/get_users_octocat.json` would be something similar to
 
 ```json
 {

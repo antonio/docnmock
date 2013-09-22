@@ -40,6 +40,18 @@ describe Docnmock::Resource do
       end
     end
 
+    describe '#example' do
+      let(:example) { subject.example path: '/example',
+                                      response: '{ "example": "true" }' }
+
+      it 'creates a new example' do
+        expect(example).to be_an_instance_of Docnmock::Resource::Example
+      end
+
+      it 'adds the example to the list' do
+        expect(subject.examples).to include(example)
+      end
+    end
   end
 
 end

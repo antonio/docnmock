@@ -1,6 +1,7 @@
 require "docnmock/api"
 require "docnmock/parameter"
 require "docnmock/resource"
+require "docnmock/example"
 require "docnmock/resource_group"
 
 module Docnmock

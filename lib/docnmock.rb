@@ -3,6 +3,7 @@ require "docnmock/parameter"
 require "docnmock/resource"
 require "docnmock/example"
 require "docnmock/resource_group"
+require "docnmock/mocker"
 
 module Docnmock
 

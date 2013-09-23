@@ -54,15 +54,12 @@ So in the end I preferred to roll my own implementation of the wheel :)
 
 ## Documenting
 
-`Docnmock` allows you to document your API using a simple syntax. You will need
-to hook it into your gem so that you can start defining your API. See example
-below
+`Docnmock` allows you to document your API using a simple syntax. To define your
+API, all you need is its url. See example below
 
 ```ruby
 
-Docnmock.hook_into(YourAwesomeGem)
-
-YourAwesomeGem::Docnmock.docnmock_api do
+Docnmock.api 'http://myawesomeservice.com/api' do
 
   resource_group 'Users' do
 
@@ -141,7 +138,7 @@ The contents of `responses/get_users_octocat.json` would be something similar to
 ## Mocking
 
 ```ruby
-Docnmock.mock 'GET /users/octocat'
+Docnmock.mock 'http://api.github.com'
 Docnmock.mock_all
 ```
 
@@ -152,7 +149,6 @@ a list of improvements that can be done.
 
 * API versions
 * Tomdoc
-* Make it possible to mock more than one API
 * Rails integration?
 * Create Error classes instead of using the standard one
 * Pass headers to example

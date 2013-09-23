@@ -32,6 +32,26 @@ require from a client application that needs to integrate against your API.
 I am going to describe the possible operations using the [GitHub users
 API](http://developer.github.com/v3/users/)
 
+## Why not reuse an existing solution? (aka why are you reinventing the wheel?)
+
+There are excellent alternatives out there, like
+[apipie-rails](https://github.com/Pajk/apipie-rails://github.com/Pajk/apipie-rails)
+and [grape](https://github.com/intridea/grape). Oh, and also
+[swagger](https://developers.helloreverb.com/swagger), which is language
+agnostic and great.
+
+But none of them was exactly what I was looking for.
+
+I don't want it to be coupled to a specific web framework.
+
+Adding a lot of documentation to the code using a DSL makes it more difficult to
+read both the documentation and the code to me.
+
+I want the documentation to be distributed as an independent project so that the
+gems can be required from the application that wants to use the mocks.
+
+So in the end I preferred to roll my own implementation of the wheel :)
+
 ## Documenting
 
 `Docnmock` allows you to document your API using a simple syntax. You will need

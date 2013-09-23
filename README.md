@@ -4,6 +4,12 @@ Climate](https://codeclimate.com/github/antonio/docnmock.png)](https://codeclima
 
 # Docnmock
 
+## Disclaimer
+
+This is a work in progress. I first wrote this document and then started
+implementing the functionality, so don't expect things to work if you can still
+read this message :)
+
 ## Rationale
 
 APIs are cool.
@@ -36,7 +42,7 @@ below
 
 Docnmock.hook_into(YourAwesomeGem)
 
-YourAwesomeGem.docnmock_api do
+YourAwesomeGem::Docnmock.docnmock_api do
 
   resource_group 'Users' do
 

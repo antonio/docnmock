@@ -148,6 +148,7 @@ As I said before, this is just an experiment. If I find it useful, here is
 a list of improvements that can be done.
 
 * API versions
+* Description of resources written in markdown
 * Tomdoc
 * Rails integration?
 * Create Error classes instead of using the standard one
@@ -156,3 +157,4 @@ a list of improvements that can be done.
   resources, for instance)
 * Refactor specs, I am pretty sure that there are some shared examples hidden
   there.
+* Allow using a port other than 80

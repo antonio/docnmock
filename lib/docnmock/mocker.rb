@@ -14,7 +14,17 @@ module Docnmock
     private
 
     def mock_example(example)
-      stub_request(resource.method, "www.example.com#{example.path}").to_return({body: example.response})
+      self.send("mock_#{resource.method}", example)
+    end
+
+    def mock_get(example)
+      stub_request(:get, "www.example.com#{example.path}").to_return({body: example.response})
+    end
+
+    def mock_post(example)
+      stub_request(:post, "www.example.com#{example.path}")
+                  .with(body: example.query_parameters)
+                  .to_return({body: example.response})
     end
 
   end

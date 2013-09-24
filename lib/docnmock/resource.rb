@@ -20,7 +20,8 @@ module Docnmock
     end
 
     def example(params)
-      Docnmock::Resource::Example.new(params[:path], params[:response])
+      Docnmock::Resource::Example.new(params[:path], params[:response],
+                                      params[:parameters] || {})
                                  .tap {|e| examples << e}
     end
 

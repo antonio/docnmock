@@ -1,5 +1,6 @@
 module Docnmock
   class Api
+    include Docnmock::Modules::Mock
 
     # Internal: Returns the resource groups
     attr_reader :resource_groups

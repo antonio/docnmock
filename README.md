@@ -137,9 +137,12 @@ The contents of `responses/get_users_octocat.json` would be something similar to
 
 ## Mocking
 
+Everything can be mocked
+
 ```ruby
-Docnmock.mock 'http://api.github.com'
-Docnmock.mock_all
+Docnmock.api('http://api.github.com').mock
+Docnmock.api('http://api.github.com').resource_group('Users').mock
+Docnmock.api('http://api.github.com').resource_group('Users').resource(:get, '/users/:user').mock
 ```
 
 ## To-Do

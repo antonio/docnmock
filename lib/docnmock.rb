@@ -1,3 +1,4 @@
+require "docnmock/modules/mock"
 require "docnmock/api"
 require "docnmock/parameter"
 require "docnmock/resource"

@@ -4,7 +4,7 @@ require "docnmock/parameter"
 require "docnmock/resource"
 require "docnmock/example"
 require "docnmock/resource_group"
-require "docnmock/mocker"
+require "docnmock/resource_mocker"
 
 module Docnmock
 

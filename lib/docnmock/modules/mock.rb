@@ -3,13 +3,13 @@ module Docnmock
     module Mock
 
       def mock
-        mocker.mock(self)
+        mocker.mock
       end
 
       private
 
-      def mocker(object_to_mock)
-        Object.const_get("#{self.class.name}Mocker").new(object_to_mock)
+      def mocker
+        Object.const_get("#{self.class.name}Mocker").new(self)
       end
     end
   end

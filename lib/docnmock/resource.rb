@@ -1,5 +1,6 @@
 module Docnmock
   class Resource
+    include Docnmock::Modules::Mock
 
     attr_reader :method, :path, :examples, :parameters, :examples
 

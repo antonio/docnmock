@@ -2,7 +2,7 @@ require 'webmock'
 
 module Docnmock
 
-  class Mocker < Struct.new(:resource)
+  class ResourceMocker < Struct.new(:resource)
     include WebMock::API
 
     def mock

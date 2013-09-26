@@ -1,13 +1,13 @@
 require 'spec_helper'
 
-describe Docnmock::Mocker do
+describe Docnmock::ResourceMocker do
 
   describe 'initialization' do
 
     let(:resource) { Docnmock::Resource.new(:get, '/path') }
 
     it 'is initialized with a resource' do
-      expect{Docnmock::Mocker.new(resource)}.to_not raise_error
+      expect{Docnmock::ResourceMocker.new(resource)}.to_not raise_error
     end
 
   end
@@ -16,7 +16,7 @@ describe Docnmock::Mocker do
 
     let(:expected_response) { '{ "status":"success" }' }
     let(:path) { '/api/resource'}
-    subject { Docnmock::Mocker.new(resource) }
+    subject { Docnmock::ResourceMocker.new(resource) }
 
     context 'the resource is available via GET' do
       let(:resource) {

@@ -97,4 +97,8 @@ describe Docnmock::Resource do
     end
   end
 
+  describe 'mocking' do
+    it { should respond_to(:mock) }
+  end
+
 end

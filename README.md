@@ -161,3 +161,7 @@ a list of improvements that can be done.
 * Refactor specs, I am pretty sure that there are some shared examples hidden
   there.
 * Allow using a port other than 80
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/antonio/docnmock/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+

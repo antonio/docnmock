@@ -65,8 +65,6 @@ describe Docnmock::Api do
 
   end
 
-  describe 'mocking' do
-    it { should respond_to(:mock) }
-  end
+  it_behaves_like 'a mockable thing'
 
 end

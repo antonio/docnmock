@@ -1,5 +1,6 @@
 module Docnmock
   class ResourceGroup
+    include Docnmock::Modules::Mock
 
     attr_reader :name, :resources
 

@@ -52,4 +52,6 @@ describe Docnmock::ResourceGroup do
     end
   end
 
+  it_behaves_like 'a mockable thing'
+
 end

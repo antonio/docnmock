@@ -1,3 +1,5 @@
+require 'active_support/inflector'
+
 module Docnmock
   module Modules
     module Mock
@@ -9,7 +11,7 @@ module Docnmock
       private
 
       def mocker
-        Object.const_get("#{self.class.name}Mocker").new(self)
+        "#{self.class.name}Mocker".constantize.new(self)
       end
     end
   end

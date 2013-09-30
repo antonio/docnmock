@@ -5,6 +5,7 @@ require "docnmock/resource"
 require "docnmock/example"
 require "docnmock/resource_group"
 require "docnmock/resource_mocker"
+require "docnmock/resource_group_mocker"
 
 module Docnmock
 

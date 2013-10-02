@@ -14,7 +14,7 @@ describe Docnmock::ResourceGroupMocker do
   describe 'mocking' do
     include_context 'testing mocks'
 
-    subject { resource_group }
+    subject { Docnmock::ResourceGroupMocker.new(resource_group) }
 
     it { should respond_to(:mock) }
 

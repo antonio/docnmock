@@ -39,4 +39,14 @@ shared_context 'testing mocks' do
     end
   }
 
+  let(:api) {
+    Docnmock::Api.new.tap do |api|
+      api.resource_group 'group' do
+        resource(:get, '/api/resource') do
+          example path: '/api/resource', response: '{ "status":"success" }'
+        end
+      end
+    end
+  }
+
 end

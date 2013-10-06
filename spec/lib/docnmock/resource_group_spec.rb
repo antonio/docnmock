@@ -37,15 +37,6 @@ describe Docnmock::ResourceGroup do
     end
   end
 
-
-  describe '#api_url' do
-    it { should respond_to(:api_base_url) }
-
-    it 'is the same as the api base url' do
-      expect(subject.api_base_url).to eq(api.base_url)
-    end
-  end
-
   describe 'resources' do
     it 'has a list of associated resources' do
       expect(subject.resources).to be_a_kind_of(Enumerable)

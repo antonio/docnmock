@@ -17,10 +17,6 @@ module Docnmock
       @description
     end
 
-    def api_base_url
-      api.base_url
-    end
-
     def resource(method, path, &block)
       resource = find_resource(method, path) || create_resource(method, path)
       resource.tap {|r| r.instance_exec(&block) if block_given? }

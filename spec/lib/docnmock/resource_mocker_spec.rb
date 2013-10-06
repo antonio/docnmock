@@ -4,7 +4,6 @@ describe Docnmock::ResourceMocker do
 
   describe 'initialization' do
 
-
     let(:api)      { double("api", base_url: 'http://www.example.com') }
     let(:resource) { Docnmock::Resource.new(api, :get, '/path') }
 
@@ -22,7 +21,7 @@ describe Docnmock::ResourceMocker do
 
       it 'mocks the resource examples' do
         subject.mock
-        response = Net::HTTP.get("www.example.com", path)
+        response = Net::HTTP.get(api_host, path)
         expect(response).to eq(expected_response)
       end
     end
@@ -32,14 +31,14 @@ describe Docnmock::ResourceMocker do
 
       it 'takes into account the parameters' do
         subject.mock
-        response = Net::HTTP.new("www.example.com").post(path, query_parameters)
+        response = Net::HTTP.new(api_host).post(path, query_parameters)
         expect(response.body).to eq(expected_response)
       end
 
       it 'does not mock the request if the parameters do not match the example' do
         subject.mock
-        Net::HTTP.new("www.example.com").post(path, '')
-        WebMock.should have_requested(:post, "www.example.com#{path}")
+        Net::HTTP.new(api_host).post(path, '')
+        WebMock.should have_requested(:post, "#{api_host}#{path}")
       end
     end
   end

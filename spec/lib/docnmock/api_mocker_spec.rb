@@ -20,7 +20,7 @@ describe Docnmock::ApiMocker do
 
     it 'should mock the resources inside the group' do
       subject.mock
-      response = Net::HTTP.get("www.example.com", path)
+      response = Net::HTTP.get(api_host, path)
       expect(response).to eq(expected_response)
     end
 

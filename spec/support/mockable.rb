@@ -14,8 +14,9 @@ shared_context 'testing mocks' do
   let(:expected_response) { '{ "status":"success" }' }
   let(:path) { '/api/resource'}
 
+  let(:api_host) { 'www.example.com' }
   let(:api) {
-    Docnmock::Api.new('http://www.example.com').tap do |api|
+    Docnmock::Api.new("http://#{api_host}").tap do |api|
       api.resource_group 'group' do
         resource(:get, '/api/resource') do
           example path: '/api/resource', response: '{ "status":"success" }'

@@ -31,14 +31,6 @@ shared_context 'testing mocks' do
     end
   }
 
-  let(:resource_group) {
-    Docnmock::ResourceGroup.new('Resource Group').tap do |rg|
-      rg.resource(:get, path) do
-        example path: '/api/resource', response: '{ "status":"success" }'
-      end
-    end
-  }
-
   let(:api) {
     Docnmock::Api.new('http://www.example.com').tap do |api|
       api.resource_group 'group' do
@@ -48,5 +40,14 @@ shared_context 'testing mocks' do
       end
     end
   }
+
+  let(:resource_group) {
+    Docnmock::ResourceGroup.new(api, 'Resource Group').tap do |rg|
+      rg.resource(:get, path) do
+        example path: '/api/resource', response: '{ "status":"success" }'
+      end
+    end
+  }
+
 
 end

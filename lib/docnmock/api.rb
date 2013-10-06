@@ -37,7 +37,7 @@ module Docnmock
     private
 
     def create_group(name)
-      Docnmock::ResourceGroup.new(name).tap {|g| add_resource_group g}
+      Docnmock::ResourceGroup.new(self, name).tap {|g| add_resource_group g}
     end
 
     def find_group(name)

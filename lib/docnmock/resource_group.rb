@@ -2,11 +2,12 @@ module Docnmock
   class ResourceGroup
     include Docnmock::Modules::Mock
 
-    attr_reader :name, :resources
+    attr_reader :name, :resources, :api
 
-    def initialize(name)
+    def initialize(api, name)
       raise "Invalid group name: #{name}" unless valid_name?(name)
 
+      @api = api
       @name = name
       set_default_attributes
     end
@@ -14,6 +15,10 @@ module Docnmock
     def description(new_description = nil)
       @description = new_description if new_description
       @description
+    end
+
+    def api_base_url
+      api.base_url
     end
 
     def resource(method, path, &block)

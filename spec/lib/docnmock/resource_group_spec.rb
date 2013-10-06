@@ -2,7 +2,9 @@ require 'spec_helper'
 
 describe Docnmock::ResourceGroup do
 
-  subject { Docnmock::ResourceGroup.new('Group') }
+  let(:api) { double("api", base_url: 'http://www.example.com') }
+
+  subject { Docnmock::ResourceGroup.new(api, 'Group') }
 
   describe 'constructor' do
 
@@ -32,6 +34,15 @@ describe Docnmock::ResourceGroup do
         expect(subject.description).to eq(new_description)
       end
 
+    end
+  end
+
+
+  describe '#api_url' do
+    it { should respond_to(:api_base_url) }
+
+    it 'is the same as the api base url' do
+      expect(subject.api_base_url).to eq(api.base_url)
     end
   end
 

@@ -4,8 +4,17 @@ describe Docnmock::Api do
 
   it { should respond_to(:resource_groups) }
   it { should respond_to(:each_group) }
+  it { should respond_to(:base_url) }
+
+  subject { Docnmock::Api.new('http://www.example.com') }
 
   let(:group) { double('resource_group', name: 'users')}
+
+  describe 'initialization' do
+    it 'needs a base url' do
+      expect{Docnmock::Api.new}.to raise_error
+    end
+  end
 
   describe '#resource_groups' do
     it 'returns an Enumerable' do

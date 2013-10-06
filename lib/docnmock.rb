@@ -18,7 +18,7 @@ module Docnmock
   #
   # Returns a new Api object
   def self.api(api_url, &block)
-    @apis[api_url] ||= Docnmock::Api.new
+    @apis[api_url] ||= Docnmock::Api.new(api_url)
     @apis[api_url].tap { |api| api.instance_exec(&block) if block_given? }
   end
 

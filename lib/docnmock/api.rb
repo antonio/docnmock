@@ -3,10 +3,11 @@ module Docnmock
     include Docnmock::Modules::Mock
 
     # Internal: Returns the resource groups
-    attr_reader :resource_groups
+    attr_reader :resource_groups, :base_url
 
     # Internal: Initialize the Api
-    def initialize
+    def initialize(base_url)
+      @base_url = base_url
       @resource_groups ||= []
     end
 

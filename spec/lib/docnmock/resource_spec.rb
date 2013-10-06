@@ -28,6 +28,7 @@ describe Docnmock::Resource do
     it { should respond_to(:formats) }
     it { should respond_to(:method) }
     it { should respond_to(:parameter) }
+    it { should respond_to(:api_base_url) }
     it { should respond_to(:path) }
 
     describe 'defaults' do
@@ -38,6 +39,12 @@ describe Docnmock::Resource do
           expect(subject.public_send(attribute)).to_not be_nil
         end
 
+      end
+    end
+
+    describe '#api_base_url' do
+      it 'returns the API base url' do
+        expect(subject.api_base_url).to eq(api.base_url)
       end
     end
 

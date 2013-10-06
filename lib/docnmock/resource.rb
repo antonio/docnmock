@@ -36,6 +36,10 @@ module Docnmock
       Docnmock::Parameter.new(attributes).tap {|p| parameters << p}
     end
 
+    def api_base_url
+      api.base_url
+    end
+
     private
 
     def valid_method?(method)

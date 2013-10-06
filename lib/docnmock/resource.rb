@@ -2,15 +2,16 @@ module Docnmock
   class Resource
     include Docnmock::Modules::Mock
 
-    attr_reader :method, :path, :examples, :parameters, :examples
+    attr_reader :method, :path, :examples, :parameters, :examples, :api
 
     HTTP_METHODS = [:options, :get, :head, :post, :put, :delete, :trace,
                     :connect]
 
-    def initialize(method, path)
+    def initialize(api, method, path)
       check_arguments!(method, path)
 
       set_default_attributes
+      @api    = api
       @method = method
       @path   = path
     end

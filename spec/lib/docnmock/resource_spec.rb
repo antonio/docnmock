@@ -2,20 +2,21 @@ require 'spec_helper'
 
 describe Docnmock::Resource do
 
+  let(:api) { double("api", base_url: 'http://www.example.com') }
   let(:path) { '/path' }
 
-  subject { Docnmock::Resource.new(:get, path) }
+  subject { Docnmock::Resource.new(api, :get, path) }
 
   describe 'initialization' do
     it 'fails for invalid HTTP methods' do
-      expect{Docnmock::Resource.new(:meh, path)}.to raise_error
+      expect{Docnmock::Resource.new(api, :meh, path)}.to raise_error
     end
     it 'fails if a path is not specified' do
-      expect{Docnmock::Resource.new(:get, nil)}.to raise_error
+      expect{Docnmock::Resource.new(api, :get, nil)}.to raise_error
     end
     context 'with valid parameters' do
       it 'does not fail' do
-        expect{Docnmock::Resource.new(:get, path)}.to_not raise_error
+        expect{Docnmock::Resource.new(api, :get, path)}.to_not raise_error
       end
     end
   end

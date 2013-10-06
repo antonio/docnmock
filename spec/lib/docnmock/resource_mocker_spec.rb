@@ -4,7 +4,9 @@ describe Docnmock::ResourceMocker do
 
   describe 'initialization' do
 
-    let(:resource) { Docnmock::Resource.new(:get, '/path') }
+
+    let(:api)      { double("api", base_url: 'http://www.example.com') }
+    let(:resource) { Docnmock::Resource.new(api, :get, '/path') }
 
     it 'is initialized with a resource' do
       expect{Docnmock::ResourceMocker.new(resource)}.to_not raise_error

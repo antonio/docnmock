@@ -14,8 +14,18 @@ shared_context 'testing mocks' do
   let(:expected_response) { '{ "status":"success" }' }
   let(:path) { '/api/resource'}
 
+  let(:api) {
+    Docnmock::Api.new('http://www.example.com').tap do |api|
+      api.resource_group 'group' do
+        resource(:get, '/api/resource') do
+          example path: '/api/resource', response: '{ "status":"success" }'
+        end
+      end
+    end
+  }
+
   let(:get_resource) {
-    Docnmock::Resource.new(:get, path).tap do |r|
+    Docnmock::Resource.new(api, :get, path).tap do |r|
       r.example path: path, response: expected_response
     end
   }
@@ -25,19 +35,9 @@ shared_context 'testing mocks' do
     parameters.collect {|k,v| "#{k}=#{v}&" }.join.tap {|s| s.chop! if s.end_with?('&')}
   end
   let(:post_resource) {
-    Docnmock::Resource.new(:post, path).tap do |r|
+    Docnmock::Resource.new(api, :post, path).tap do |r|
       r.example path: path, parameters: parameters,
         response: expected_response
-    end
-  }
-
-  let(:api) {
-    Docnmock::Api.new('http://www.example.com').tap do |api|
-      api.resource_group 'group' do
-        resource(:get, '/api/resource') do
-          example path: '/api/resource', response: '{ "status":"success" }'
-        end
-      end
     end
   }
 

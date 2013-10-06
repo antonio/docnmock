@@ -38,7 +38,7 @@ module Docnmock
     end
 
     def create_resource(method, path)
-      Docnmock::Resource.new(method, path).tap {|r| resources << r}
+      Docnmock::Resource.new(api, method, path).tap {|r| resources << r}
     end
   end
 end

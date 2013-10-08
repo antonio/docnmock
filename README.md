@@ -32,6 +32,13 @@ require from a client application that needs to integrate against your API.
 I am going to describe the possible operations using the [GitHub users
 API](http://developer.github.com/v3/users/)
 
+## Demo
+
+Check out these other two projects
+
+* [docnmock_github](https://github.com/antonio/docnmock_github)
+* [github-user-info](https://github.com/antonio/github-user-info)
+
 ## Why not reuse an existing solution? (aka why are you reinventing the wheel?)
 
 There are excellent alternatives out there, like

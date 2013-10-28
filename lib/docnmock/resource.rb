@@ -27,6 +27,10 @@ module Docnmock
                                  .tap {|e| examples << e}
     end
 
+    def response(fixture)
+      File.read("responses/#{fixture}")
+    end
+
     def formats(response_formats = nil)
       @formats = Array(response_formats) if response_formats
       @formats

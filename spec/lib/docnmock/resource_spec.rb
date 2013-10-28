@@ -30,6 +30,7 @@ describe Docnmock::Resource do
     it { should respond_to(:parameter) }
     it { should respond_to(:api_base_url) }
     it { should respond_to(:path) }
+    it { should respond_to(:response) }
 
     describe 'defaults' do
 
@@ -101,6 +102,22 @@ describe Docnmock::Resource do
 
       it 'adds the example to the list' do
         expect(subject.examples).to include(example)
+      end
+    end
+
+    describe '#response' do
+      let!(:fixture) { File.read('spec/responses/api_response.json') }
+
+      before do
+        Dir.chdir 'spec'
+      end
+
+      after do
+        Dir.chdir '..'
+      end
+
+      it 'loads a fixture from responses/' do
+        expect(subject.response('api_response.json')).to eq(fixture)
       end
     end
   end

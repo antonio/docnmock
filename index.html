@@ -1,0 +1,224 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Docnmock by antonio</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Docnmock</h1>
+        <p>Document and mock your APIs</p>
+
+        <p class="view"><a href="https://github.com/antonio/docnmock">View the Project on GitHub <small>antonio/docnmock</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/antonio/docnmock/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/antonio/docnmock/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/antonio/docnmock">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <p><a href="https://codeclimate.com/github/antonio/docnmock"><img src="https://codeclimate.com/github/antonio/docnmock.png" alt="Code
+Climate"></a>
+<a href="https://travis-ci.org/antonio/docnmock"><img src="https://travis-ci.org/antonio/docnmock.png?branch=master" alt="Build Status"></a></p>
+
+<h1>
+<a name="docnmock" class="anchor" href="#docnmock"><span class="octicon octicon-link"></span></a>Docnmock</h1>
+
+<h2>
+<a name="disclaimer" class="anchor" href="#disclaimer"><span class="octicon octicon-link"></span></a>Disclaimer</h2>
+
+<p>This is a work in progress. I first wrote this document and then started
+implementing the functionality, so don't expect things to work if you can still
+read this message :)</p>
+
+<h2>
+<a name="rationale" class="anchor" href="#rationale"><span class="octicon octicon-link"></span></a>Rationale</h2>
+
+<p>APIs are cool.</p>
+
+<p>But documenting them sucks. And mocking them sucks. I want to see if double suck
+can be cool, or at the very least get all the boring parts in the same place.</p>
+
+<p>This is an <em>experiment</em> and it will probably go nowhere. You have been warned.</p>
+
+<h2>
+<a name="the-experiment" class="anchor" href="#the-experiment"><span class="octicon octicon-link"></span></a>The experiment</h2>
+
+<p>I want to be able to automatically mock an API from its documentation. Using
+<code>docnmock</code> you will create the documentation for your API using <code>Ruby</code> and
+generate an HTML site from it.</p>
+
+<p>Also, <code>docnmock</code> will let you mock your API using the examples included in your
+documentation. The idea is to have a small, self contained package that you can
+require from a client application that needs to integrate against your API.</p>
+
+<p>I am going to describe the possible operations using the <a href="http://developer.github.com/v3/users/">GitHub users
+API</a></p>
+
+<h2>
+<a name="demo" class="anchor" href="#demo"><span class="octicon octicon-link"></span></a>Demo</h2>
+
+<p>Check out these other two projects</p>
+
+<ul>
+<li><a href="https://github.com/antonio/docnmock_github">docnmock_github</a></li>
+<li><a href="https://github.com/antonio/github-user-info">github-user-info</a></li>
+</ul><h2>
+<a name="why-not-reuse-an-existing-solution-aka-why-are-you-reinventing-the-wheel" class="anchor" href="#why-not-reuse-an-existing-solution-aka-why-are-you-reinventing-the-wheel"><span class="octicon octicon-link"></span></a>Why not reuse an existing solution? (aka why are you reinventing the wheel?)</h2>
+
+<p>There are excellent alternatives out there, like
+<a href="https://github.com/Pajk/apipie-rails://github.com/Pajk/apipie-rails">apipie-rails</a>
+and <a href="https://github.com/intridea/grape">grape</a>. Oh, and also
+<a href="https://developers.helloreverb.com/swagger">swagger</a>, which is language
+agnostic and great.</p>
+
+<p>But none of them was exactly what I was looking for.</p>
+
+<p>I don't want it to be coupled to a specific web framework.</p>
+
+<p>Adding a lot of documentation to the code using a DSL makes it more difficult to
+read both the documentation and the code to me.</p>
+
+<p>I want the documentation to be distributed as an independent project so that the
+gems can be required from the application that wants to use the mocks.</p>
+
+<p>So in the end I preferred to roll my own implementation of the wheel :)</p>
+
+<h2>
+<a name="documenting" class="anchor" href="#documenting"><span class="octicon octicon-link"></span></a>Documenting</h2>
+
+<p><code>Docnmock</code> allows you to document your API using a simple syntax. To define your
+API, all you need is its url. See example below</p>
+
+<div class="highlight highlight-ruby"><pre>
+<span class="no">Docnmock</span><span class="o">.</span><span class="n">api</span> <span class="s1">'http://myawesomeservice.com/api'</span> <span class="k">do</span>
+
+  <span class="n">resource_group</span> <span class="s1">'Users'</span> <span class="k">do</span>
+
+    <span class="n">description</span> <span class="o">&lt;&lt;-</span><span class="no">EOD</span>
+<span class="sh">      Many of the resources on the users API provide a shortcut for</span>
+<span class="sh">      getting information about the currently authenticated user. If a request URL</span>
+<span class="sh">      does not include a :user parameter then the response will be for the logged in</span>
+<span class="sh">      user (and you must pass authentication information with your request).</span>
+<span class="no">    EOD</span>
+
+    <span class="n">resource</span> <span class="ss">:get</span><span class="p">,</span> <span class="s1">'/users/:user'</span> <span class="k">do</span>
+      <span class="n">description</span> <span class="s1">'Get a single user'</span>
+      <span class="n">parameter</span> <span class="nb">name</span><span class="p">:</span> <span class="ss">:user</span><span class="p">,</span> <span class="ss">description</span><span class="p">:</span> <span class="s1">'The user'</span><span class="p">,</span> <span class="ss">required</span><span class="p">:</span> <span class="kp">false</span>
+      <span class="n">example</span> <span class="ss">path</span><span class="p">:</span> <span class="s1">'/users/octocat'</span><span class="p">,</span> <span class="ss">response</span><span class="p">:</span> <span class="n">response</span><span class="p">(</span><span class="s1">'get_users_octocat.json'</span><span class="p">)</span>
+    <span class="k">end</span>
+
+<span class="k">end</span>
+
+</pre></div>
+
+<p><code>parameter</code> accepts a hash with the following attributes:</p>
+
+<ul>
+<li>
+<p>name</p>
+
+<p>The name of the parameter. In the resource path, it is preceded by a colon.</p>
+</li>
+<li>
+<p>description</p>
+
+<p>Freestyle description of the parameter.</p>
+</li>
+<li>
+<p>required</p>
+
+<p>Either true or false, defaults to false.</p>
+</li>
+<li>
+<p>type</p>
+
+<p>Type of the parameter. There are no boundaries for this, but try to use well
+known primitives as a guideline (string, int, boolean, etc)</p>
+</li>
+</ul><p><code>example</code> accepts two arguments. The first one is the request path, including
+whatever parameters are needed. The second one is the response that will be
+returned (as a string). As you can see in the example above, you can (and
+should!) use a helper to load the response from a file bundled with your gem.
+<code>docnmock</code> assumes your fixtures will be under a folder named <code>responses</code>. For
+more information, please have a look at the
+<a href="https://github.com/antonio/docnmock-github">docnmock-github</a> project.</p>
+
+<p>The contents of <code>responses/get_users_octocat.json</code> would be something similar to</p>
+
+<div class="highlight highlight-json"><pre><span class="p">{</span>
+  <span class="nt">"login"</span><span class="p">:</span> <span class="s2">"octocat"</span><span class="p">,</span>
+  <span class="nt">"id"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="nt">"avatar_url"</span><span class="p">:</span> <span class="s2">"https://github.com/images/error/octocat_happy.gif"</span><span class="p">,</span>
+  <span class="nt">"gravatar_id"</span><span class="p">:</span> <span class="s2">"somehexcode"</span><span class="p">,</span>
+  <span class="nt">"url"</span><span class="p">:</span> <span class="s2">"https://api.github.com/users/octocat"</span><span class="p">,</span>
+  <span class="nt">"name"</span><span class="p">:</span> <span class="s2">"monalisa octocat"</span><span class="p">,</span>
+  <span class="nt">"company"</span><span class="p">:</span> <span class="s2">"GitHub"</span><span class="p">,</span>
+  <span class="nt">"blog"</span><span class="p">:</span> <span class="s2">"https://github.com/blog"</span><span class="p">,</span>
+  <span class="nt">"location"</span><span class="p">:</span> <span class="s2">"San Francisco"</span><span class="p">,</span>
+  <span class="nt">"email"</span><span class="p">:</span> <span class="s2">"octocat@github.com"</span><span class="p">,</span>
+  <span class="nt">"hireable"</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="nt">"bio"</span><span class="p">:</span> <span class="s2">"There once was..."</span><span class="p">,</span>
+  <span class="nt">"public_repos"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+  <span class="nt">"public_gists"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="nt">"followers"</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+  <span class="nt">"following"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="nt">"html_url"</span><span class="p">:</span> <span class="s2">"https://github.com/octocat"</span><span class="p">,</span>
+  <span class="nt">"created_at"</span><span class="p">:</span> <span class="s2">"2008-01-14T04:33:35Z"</span><span class="p">,</span>
+  <span class="nt">"type"</span><span class="p">:</span> <span class="s2">"User"</span>
+<span class="p">}</span>
+</pre></div>
+
+<h2>
+<a name="generate-documentation" class="anchor" href="#generate-documentation"><span class="octicon octicon-link"></span></a>Generate documentation</h2>
+
+<h2>
+<a name="mocking" class="anchor" href="#mocking"><span class="octicon octicon-link"></span></a>Mocking</h2>
+
+<p>Everything can be mocked</p>
+
+<div class="highlight highlight-ruby"><pre><span class="no">Docnmock</span><span class="o">.</span><span class="n">api</span><span class="p">(</span><span class="s1">'http://api.github.com'</span><span class="p">)</span><span class="o">.</span><span class="n">mock</span>
+<span class="no">Docnmock</span><span class="o">.</span><span class="n">api</span><span class="p">(</span><span class="s1">'http://api.github.com'</span><span class="p">)</span><span class="o">.</span><span class="n">resource_group</span><span class="p">(</span><span class="s1">'Users'</span><span class="p">)</span><span class="o">.</span><span class="n">mock</span>
+<span class="no">Docnmock</span><span class="o">.</span><span class="n">api</span><span class="p">(</span><span class="s1">'http://api.github.com'</span><span class="p">)</span><span class="o">.</span><span class="n">resource_group</span><span class="p">(</span><span class="s1">'Users'</span><span class="p">)</span><span class="o">.</span><span class="n">resource</span><span class="p">(</span><span class="ss">:get</span><span class="p">,</span> <span class="s1">'/users/:user'</span><span class="p">)</span><span class="o">.</span><span class="n">mock</span>
+</pre></div>
+
+<h2>
+<a name="to-do" class="anchor" href="#to-do"><span class="octicon octicon-link"></span></a>To-Do</h2>
+
+<p>As I said before, this is just an experiment. If I find it useful, here is
+a list of improvements that can be done.</p>
+
+<ul>
+<li>API versions</li>
+<li>Description of resources written in markdown</li>
+<li>Tomdoc</li>
+<li>Rails integration?</li>
+<li>Create Error classes instead of using the standard one</li>
+<li>Pass headers to example</li>
+<li>Resource validation and rake tasks to validate the API (say you are missing parameters in your
+resources, for instance)</li>
+<li>Refactor specs, I am pretty sure that there are some shared examples hidden
+there.</li>
+<li>Allow using a port other than 80</li>
+</ul><p><a href="https://bitdeli.com/free" title="Bitdeli Badge"><img src="https://d2weczhvl823v0.cloudfront.net/antonio/docnmock/trend.png" alt="Bitdeli Badge"></a></p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/antonio">antonio</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
